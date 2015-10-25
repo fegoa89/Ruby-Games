@@ -1,4 +1,7 @@
 class Bullet
+
+  attr_reader :x, :y, :radius
+
   def initialize(window, x, y, angle)
     @x = x
     @y = y

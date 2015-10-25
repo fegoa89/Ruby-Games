@@ -21,6 +21,7 @@ class Main < Gosu::Window
     manage_player_movement
     manage_enemies_movement
     manage_bullets_movement
+    manage_collisions
   end
 
   def manage_enemies_movement
@@ -55,6 +56,18 @@ class Main < Gosu::Window
   def manage_bullets_movement
     @bullets.each do |bullet|
       bullet.move
+    end
+  end
+
+  def manage_collisions
+    @enemies.dup.each do |enemy|
+      @bullets.dup.each do |bullet|
+        distance = Gosu.distance(enemy.x, enemy.y, bullet.x, bullet.y)
+        if distance < enemy.radius + bullet.radius
+          @enemies.delete enemy
+          @bullets.delete bullet
+        end
+      end
     end
   end
 
